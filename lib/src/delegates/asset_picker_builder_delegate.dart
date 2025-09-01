@@ -1868,7 +1868,7 @@ class DefaultAssetPickerBuilderDelegate
                 : '发送',
             style: TextStyle(
               color: shouldAllowConfirm
-                  ? theme.textTheme.bodyLarge?.color
+                  ? Colors.white
                   : theme.textTheme.bodySmall?.color,
               fontSize: 16,
               fontWeight: FontWeight.normal,
