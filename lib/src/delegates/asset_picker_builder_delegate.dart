@@ -699,12 +699,31 @@ abstract class AssetPickerBuilderDelegate<Asset, Path> {
   Widget backButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: IconButton(
-        onPressed: () {
-          Navigator.maybeOf(context)?.maybePop();
-        },
-        tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
-        icon: const Icon(Icons.close),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 16),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.maybeOf(context)?.maybePop();
+          },
+          child: Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.6),
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  offset: const Offset(0, 4),
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+            child: Center(
+              child: Icon(Icons.close),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -1208,12 +1227,24 @@ class DefaultAssetPickerBuilderDelegate
 
   @override
   AssetPickerAppBar appBar(BuildContext context) {
-    final AssetPickerAppBar appBar = AssetPickerAppBar(
-      title: Semantics(
-        onTapHint: semanticsTextDelegate.sActionSwitchPathLabel,
-        child: pathEntitySelector(context),
+    final appBar = AssetPickerAppBar(
+      automaticallyImplyLeading: false,
+      title: Row(
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Semantics(
+                onTapHint: semanticsTextDelegate.sActionSwitchPathLabel,
+                child: pathEntitySelector(context),
+              ),
+            ),
+          ),
+        ],
       ),
-      leading: backButton(context),
+      actions: [
+        backButton(context),
+      ],
       blurRadius: 0,
     );
     appBarPreferredSize ??= appBar.preferredSize;
