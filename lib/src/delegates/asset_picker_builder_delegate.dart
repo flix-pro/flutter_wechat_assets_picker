@@ -1547,7 +1547,7 @@ class DefaultAssetPickerBuilderDelegate
                       slivers: <Widget>[
                         if (isAppleOS(context))
                           SliverGap.v(
-                            context.topPadding + appBarPreferredSize!.height,
+                            appBarPreferredSize!.height,
                           ),
                         sliverGrid(context, constraints, assets, onlyOneScreen),
                         // Append the extra bottom padding for Apple OS.
@@ -1847,6 +1847,10 @@ class DefaultAssetPickerBuilderDelegate
         final bool shouldAllowConfirm =
             isSelectedNotEmpty || p.previousSelectedAssets.isNotEmpty;
         return MaterialButton(
+          elevation: 0,
+          highlightElevation: 0, // 点击时不出现额外阴影
+          splashColor: Colors.transparent, // 去掉水波纹
+          highlightColor: Colors.transparent, // 去掉点击时的高亮背景
           minWidth: shouldAllowConfirm ? 48 : 20,
           height: appBarItemHeight,
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),

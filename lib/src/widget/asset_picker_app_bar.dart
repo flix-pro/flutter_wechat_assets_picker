@@ -117,8 +117,8 @@ class AssetPickerAppBar extends StatelessWidget implements PreferredSizeWidget {
     final EdgeInsets padding = MediaQuery.paddingOf(context);
     Widget child = Container(
       width: double.maxFinite,
-      height: _barHeight + padding.top,
-      padding: EdgeInsets.only(top: padding.top),
+      height: _barHeight,
+      padding: EdgeInsets.only(top: 0),
       child: Stack(
         children: <Widget>[
           if (canPop(context))
