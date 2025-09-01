@@ -2359,11 +2359,13 @@ class DefaultAssetPickerBuilderDelegate
   Widget selectIndicator(BuildContext context, int index, AssetEntity asset) {
     final double indicatorSize =
         MediaQuery.sizeOf(context).width / gridCount / 3;
+
     final Duration duration = switchingPathDuration * 0.75;
     return Selector<DefaultAssetPickerProvider, String>(
       selector: (_, DefaultAssetPickerProvider p) => p.selectedDescriptions,
       builder: (BuildContext context, String descriptions, __) {
         final bool selected = descriptions.contains(asset.toString());
+
         final Widget innerSelector = AnimatedContainer(
           duration: duration,
           width: indicatorSize / (isAppleOS(context) ? 1.25 : 1.5),
@@ -2376,22 +2378,29 @@ class DefaultAssetPickerBuilderDelegate
                     width: indicatorSize / 25,
                   )
                 : null,
-            color: selected ? themeColor : null,
+            color: selected ? const Color.fromRGBO(52, 130, 255, 1) : null,
             shape: BoxShape.circle,
           ),
-          child: FittedBox(
-            child: AnimatedSwitcher(
-              duration: duration,
-              reverseDuration: duration,
-              child: selected
-                  ? Text(
-                      '${index + 1}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
+          child: Consumer<DefaultAssetPickerProvider>(
+            builder: (_, DefaultAssetPickerProvider p, __) {
+              final int index = p.selectedAssets.indexOf(asset);
+              final bool selected = index != -1;
+              return FittedBox(
+                child: AnimatedSwitcher(
+                  duration: duration,
+                  reverseDuration: duration,
+                  child: selected
+                      ? Text(
+                          '${index + 1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            height: 1,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+              );
+            },
           ),
         );
         final Widget selectorWidget = GestureDetector(
@@ -2440,21 +2449,9 @@ class DefaultAssetPickerBuilderDelegate
               duration: switchingPathDuration,
               padding: EdgeInsets.all(indicatorSize * .35),
               color: selected
-                  ? theme.colorScheme.primary.withOpacity(.45)
-                  : theme.colorScheme.surface.withOpacity(.1),
-              child: selected && !isSingleAssetMode
-                  ? Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: SizedBox(
-                        height: indicatorSize / 2.5,
-                        child: FittedBox(
-                          alignment: AlignmentDirectional.topStart,
-                          fit: BoxFit.cover,
-                          child: const SizedBox.shrink(),
-                        ),
-                      ),
-                    )
-                  : const SizedBox.shrink(),
+                  ? theme.colorScheme.primary.withOpacity(0)
+                  : theme.colorScheme.surface.withOpacity(0),
+              child: const SizedBox.shrink(),
             );
           },
         ),
