@@ -2383,8 +2383,14 @@ class DefaultAssetPickerBuilderDelegate
             child: AnimatedSwitcher(
               duration: duration,
               reverseDuration: duration,
-              child:
-                  selected ? const Icon(Icons.check) : const SizedBox.shrink(),
+              child: selected
+                  ? Text(
+                      '${index + 1}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ),
           ),
         );
@@ -2444,15 +2450,7 @@ class DefaultAssetPickerBuilderDelegate
                         child: FittedBox(
                           alignment: AlignmentDirectional.topStart,
                           fit: BoxFit.cover,
-                          child: Text(
-                            '${index + 1}',
-                            style: TextStyle(
-                              color: theme.textTheme.bodyLarge?.color
-                                  ?.withOpacity(.75),
-                              fontWeight: FontWeight.w600,
-                              height: 1,
-                            ),
-                          ),
+                          child: const SizedBox.shrink(),
                         ),
                       ),
                     )
