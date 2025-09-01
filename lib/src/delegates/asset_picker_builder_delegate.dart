@@ -1849,11 +1849,11 @@ class DefaultAssetPickerBuilderDelegate
         return MaterialButton(
           minWidth: shouldAllowConfirm ? 48 : 20,
           height: appBarItemHeight,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          color: theme.colorScheme.secondary,
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          color: Color.fromRGBO(52, 130, 255, 1),
           disabledColor: theme.splashColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(100),
           ),
           onPressed: shouldAllowConfirm
               ? () {
@@ -1863,14 +1863,14 @@ class DefaultAssetPickerBuilderDelegate
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           child: ScaleText(
             isSelectedNotEmpty && !isSingleAssetMode
-                ? '${textDelegate.confirm}'
+                ? '发送'
                     ' (${p.selectedAssets.length}/${p.maxAssets})'
-                : textDelegate.confirm,
+                : '发送',
             style: TextStyle(
               color: shouldAllowConfirm
                   ? theme.textTheme.bodyLarge?.color
                   : theme.textTheme.bodySmall?.color,
-              fontSize: 17,
+              fontSize: 16,
               fontWeight: FontWeight.normal,
             ),
             semanticsLabel: isSelectedNotEmpty && !isSingleAssetMode
@@ -2572,7 +2572,7 @@ class DefaultAssetPickerBuilderDelegate
           ),
           child: Row(
             children: <Widget>[
-              if (isPreviewEnabled) previewButton(context),
+              // if (isPreviewEnabled) previewButton(context),
               if (isPreviewEnabled || !isSingleAssetMode) const Spacer(),
               if (isPreviewEnabled || !isSingleAssetMode)
                 confirmButton(context),
