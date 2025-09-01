@@ -2374,7 +2374,7 @@ class DefaultAssetPickerBuilderDelegate
           decoration: BoxDecoration(
             border: !selected
                 ? Border.all(
-                    color: context.theme.unselectedWidgetColor,
+                    color: Colors.white,
                     width: indicatorSize / 25,
                   )
                 : null,
@@ -2394,7 +2394,7 @@ class DefaultAssetPickerBuilderDelegate
                           '${index + 1}',
                           style: const TextStyle(
                             color: Colors.white,
-                            height: 1,
+                            height: 1.2,
                           ),
                         )
                       : const SizedBox.shrink(),
